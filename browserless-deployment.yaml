@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: browserless
+  name: browserless
+  namespace: testns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: browserless
+  template:
+    metadata:
+      labels:
+        app: browserless
+    spec:
+      containers:
+        - env:
+            - name: CONCURRENT
+              value: "1"
+            - name: DEFAULT_LAUNCH_ARGS
+              value: '["--window-size=1920,1080"]'
+            - name: TIMEOUT
+              value: "60000"
+          image: ghcr.io/browserless/chrome:v2.25.2
+          name: browserless
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 1G
+            limits:
+              cpu: 1000m
+              memory: 1G
+      restartPolicy: Always

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: changedetection-io
+  name: changedetection-io
+  namespace: testns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: changedetection-io
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: changedetection-io
+    spec:
+      containers:
+        - name: changedetection
+          image: ghcr.io/dgtlmoon/changedetection.io
+          envFrom:
+            - configMapRef:
+                name: configs
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 100m
+              memory: "600M"
+            limits:
+              cpu: 500m
+              memory: "600M"
+          volumeMounts:
+            - mountPath: /datastore
+              name: local-data
+
+      restartPolicy: Always
+      volumes:
+        - name: local-data
+          persistentVolumeClaim:
+            claimName: pvc-changedetectionio-data
