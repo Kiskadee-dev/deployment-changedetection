@@ -16,13 +16,9 @@ spec:
         app: browserless
     spec:
       containers:
-        - env:
-            - name: CONCURRENT
-              value: "1"
-            - name: DEFAULT_LAUNCH_ARGS
-              value: '["--window-size=1920,1080"]'
-            - name: TIMEOUT
-              value: "60000"
+        - envFrom:
+            - configMapRef:
+                name: browserless-configs
           image: ghcr.io/browserless/chrome:v2.25.2
           name: browserless
           ports:

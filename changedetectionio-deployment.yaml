@@ -22,7 +22,7 @@ spec:
           image: ghcr.io/dgtlmoon/changedetection.io
           envFrom:
             - configMapRef:
-                name: configs
+                name: changedetection-configs
           ports:
             - containerPort: 5000
               protocol: TCP

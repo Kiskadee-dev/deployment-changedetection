@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: configs
+  name: changedetection-configs
   namespace: changedetect
 data:
     DEFAULT_SETTINGS_REQUESTS_TIMEOUT: "900000"
@@ -9,3 +9,13 @@ data:
     # I did this to fix the constant timeouts I've faced in the application as Browserless has its own timeouts that works fine.
     # This env var does not exist in the original image! might make a PR later for the main project.
     PLAYWRIGHT_TIMEOUT: "900000"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: browserless-configs
+  namespace: changedetect
+data:
+  CONCURRENT: "1"
+  DEFAULT_LAUNCH_ARGS: '["--window-size=1920,1080"]'
+  TIMEOUT: "60000"
