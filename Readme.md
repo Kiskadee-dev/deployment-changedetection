@@ -14,3 +14,5 @@
 
 ---
 This deployment demonstrates concepts such as namespaces, persistent storage, services, ingress, and pod health checks.
+
+Service project page: https://github.com/dgtlmoon/changedetection.io
