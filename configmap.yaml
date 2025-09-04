@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: configs
-  namespace: testns
+  namespace: changedetect
 data:
     DEFAULT_SETTINGS_REQUESTS_TIMEOUT: "900000"
     PLAYWRIGHT_DRIVER_URL: ws://browserless:3000/chrome?stealth=true&blockAds=true

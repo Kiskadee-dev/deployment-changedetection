@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-changedetectionio-data
-  namespace: testns
+  namespace: changedetect
 spec:
   resources:
     requests:
